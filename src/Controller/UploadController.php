@@ -77,7 +77,6 @@ class UploadController extends AbstractController
     {
         if ($request->isMethod('POST')) {
             $uploadedFile = $request->files->get('uploadFile');
-            
             $type = $request->get('type');
 
             switch ($type) {
@@ -111,6 +110,12 @@ class UploadController extends AbstractController
                 }
 
                 $filename = $uploadedFile->getClientOriginalName();
+                $filesystem = new Filesystem();
+                if($filesystem->exists($type."/".$filename))
+                {
+                    // $filename = $filename .
+                    //nouveau nom
+                }
                 $uploadedFile->move($type, $filename);
 
                 return $this->redirectToRoute('app_upload_index');
