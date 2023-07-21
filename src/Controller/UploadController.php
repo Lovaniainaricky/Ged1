@@ -53,9 +53,9 @@ class UploadController extends AbstractController
         $filesystem = new Filesystem();
         if($filesystem->exists($filepath))
         {
-            $filesystem->remove($filepath);
-            
+            $filesystem->remove($filepath);    
         }
+
         return $this->redirectToRoute('app_upload_index');
     }
 
@@ -85,7 +85,7 @@ class UploadController extends AbstractController
                     $textErreur = "image (JPEG, PNG, GIF)";
                     break;
                 case 'video':
-                    $typeMimes = ['video/mp4'];
+                    $typeMimes = ['video/mp4',"video/x-mpeg","audio/mpeg"];
                     $textErreur = "Video (Mp4)";
                     break;
                 case 'pdf':
@@ -121,6 +121,7 @@ class UploadController extends AbstractController
                 return $this->redirectToRoute('app_upload_index');
             }
         }
+        
         return $this->redirectToRoute("app_upload_index");
     }
 
