@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Liste des fichiers {{ type|upper }}</h1>
+
+    <ul>
+        {% if files is empty %}
+            Aucun fichier 
+        {% else %}
+            {% for file in files %}
+                <li>
+                    {{ file.getFilename }}
+                    <a href="{{ path('app_upload_detele_file', {'filename': file.getFilename,'type': type}) }}">
+                        <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
+                    </a>
+                    <a href="{{ path('app_upload_download_file', {'filename': file.getFilename,'type': type}) }}">
+                        <button class="btn btn-xs"><i class="fa fa-download"></i></button>
+                    </a>
+                </li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+    <form method="post" enctype="multipart/form-data" action="{{ path('app_upload__file', {'type': type}) }}">
+        <input type="file" name="uploadFile" id="">
+        <button class="btn btn-primary" type="submit">Envoyer</button>
+    </form>
+    
+{% endblock %}
